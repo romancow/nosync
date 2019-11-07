@@ -1,0 +1,26 @@
+{
+	"name": "@romancow/nosync",
+	"version": "1.0.0",
+	"description": "Stop iCloud from syncing designated files and folders",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/romancow/nosync.git"
+	},
+	"keywords": [
+		"iCloud",
+		"sync",
+		"nosync",
+		"symlink",
+		"node_modules"
+	],
+	"author": "Sean Wilson",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/romancow/nosync/issues"
+	},
+	"homepage": "https://github.com/romancow/nosync#readme"
+}

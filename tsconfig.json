@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"module": "es2015",
+		"moduleResolution": "node",
+		"strict": true,
+		"noImplicitAny": true,
+		"noImplicitReturns": true,
+		"noUnusedLocals": true,
+		"target": "es5",
+	},
+	"files": [
+		"index.ts"
+	]
+}

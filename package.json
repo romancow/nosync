@@ -2,9 +2,16 @@
 	"name": "@romancow/nosync",
 	"version": "1.0.0",
 	"description": "Stop iCloud from syncing designated files and folders",
-	"main": "index.js",
+	"main": "cjs/index.js",
+	"module": "es6/nosync.js",
+	"types": "types/nosync.d.ts",
+	"bin": "cjs/cli.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"clean": "rimraf ./es6/* ./cjs/* ./types/*",
+		"build:es6": "tsc -p .",
+		"prebuild:cjs": "npm run build:es6",
+		"build:cjs": "rollup -c"
 	},
 	"repository": {
 		"type": "git",

@@ -62,8 +62,9 @@ typings/
 tmp
 
 # built & distributable files
-build
-dist
+es6
+cjs
+types
 
 # nvm
 .nvmrc

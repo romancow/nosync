@@ -26,6 +26,7 @@
 	"devDependencies": {
 		"@types/fs-extra": "^8.0.1",
 		"@types/node": "^12.12.6",
+		"rollup": "^1.27.3",
 		"typescript": "^3.7.2"
 	},
 	"dependencies": {

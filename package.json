@@ -10,8 +10,10 @@
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"clean": "rimraf ./es6/* ./cjs/* ./types/*",
 		"build:es6": "tsc -p .",
-		"prebuild:cjs": "npm run build:es6",
-		"build:cjs": "rollup -c"
+		"build:cjs": "rollup -c",
+		"prebuild": "npm run clean",
+		"build": "npm run build:es6 && npm run build:cjs",
+		"prepare": "npm run build"
 	},
 	"repository": {
 		"type": "git",

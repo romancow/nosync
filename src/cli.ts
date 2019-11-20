@@ -1,5 +1,3 @@
-#! /usr/bin/env node
-
 const { version } = require('../package.json')
 import program from 'commander'
 // import nosync from '../'

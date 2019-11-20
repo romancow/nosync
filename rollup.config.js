@@ -1,5 +1,4 @@
 import pkg from './package.json'
-console.log(Object.keys(pkg.dependencies))
 
 export default [{
 	input: pkg.module,
@@ -14,6 +13,7 @@ export default [{
 	external: ['commander'],
 	output: {
 		file: pkg.bin,
-		format: 'cjs'
+		format: 'cjs',
+		banner: '#! /usr/bin/env node'
 	}
 }]

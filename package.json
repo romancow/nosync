@@ -24,6 +24,11 @@
 	},
 	"homepage": "https://github.com/romancow/nosync#readme",
 	"devDependencies": {
+		"@types/fs-extra": "^8.0.1",
+		"@types/node": "^12.12.6",
 		"typescript": "^3.7.2"
+	},
+	"dependencies": {
+		"fs-extra": "^8.1.0"
 	}
 }

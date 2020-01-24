@@ -2,7 +2,7 @@
 	"compilerOptions": {
 		"declaration": true,
 		"declarationDir": "./types",
-		"sourceMap": true,
+		"sourceMap": false,
 		"module": "es6",
 		"moduleResolution": "node",
 		"resolveJsonModule": true,

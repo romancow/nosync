@@ -1,6 +1,6 @@
 {
 	"name": "@romancow/nosync",
-	"version": "1.0.0",
+	"version": "0.1.0",
 	"description": "Stop iCloud from syncing designated files and folders",
 	"main": "cjs/index.js",
 	"module": "es6/index.js",

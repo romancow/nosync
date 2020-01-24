@@ -6,6 +6,11 @@
 	"module": "es6/index.js",
 	"types": "types/index.d.ts",
 	"bin": "cjs/cli.js",
+	"files": [
+		"es6/",
+		"cjs/",
+		"types/"
+	],
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"clean": "rimraf ./es6/* ./cjs/* ./types/*",
@@ -38,6 +43,7 @@
 		"rimraf": "^3.0.0",
 		"rollup": "^1.27.3",
 		"rollup-plugin-consts": "^1.0.1",
+		"rollup-plugin-executable": "^1.5.2",
 		"typescript": "^3.7.2"
 	},
 	"dependencies": {

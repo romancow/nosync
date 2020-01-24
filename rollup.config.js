@@ -1,4 +1,5 @@
 import pkg from './package.json'
+import consts from 'rollup-plugin-consts'
 
 export default [{
 	input: pkg.module,
@@ -7,7 +8,7 @@ export default [{
 	output: {
 		file: pkg.main,
 		format: 'cjs',
-	},
+	}
 }, {
 	input: 'es6/cli.js',
 	external: ['commander'],
@@ -15,5 +16,8 @@ export default [{
 		file: pkg.bin,
 		format: 'cjs',
 		banner: '#! /usr/bin/env node'
-	}
+	},
+	plugins: [consts({
+		version: pkg.version
+	})]
 }]

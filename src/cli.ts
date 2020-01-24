@@ -7,10 +7,8 @@ program.version(version)
 	.option('-s, --settings <json file>', 'JSON settings file')
 	.option('-b, --base <path>', 'Base folder to store non-synced files')
 	.option('-o, --overwrite', 'Overwrite existing files in nosync folder')
-	// .option('-c, --check', '')
 	.arguments('<paths...>')	//"Files or folders you don't want synced"
 	.action((paths: string[]) => {
-		// console.log(paths)
 		const settings = program.settings as string | undefined
 		const options = ((settings != null) && fs.existsSync(settings)) ?
 			fs.readJsonSync(settings) :

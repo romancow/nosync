@@ -10,6 +10,10 @@ namespace _Object {
 }
 
 namespace _Array {
+	export function ensure<T>(unensuredArray: T | T[]){
+		return Array.isArray(unensuredArray) ? unensuredArray : [unensuredArray]
+	}
+
 	export function toObject<T, U>(arr: T[], map: (item: T, arr: T[]) => [string, U]) {
 		return arr.reduce((obj, item) => {
 			const [key, val] = map(item, arr)

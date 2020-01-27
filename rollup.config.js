@@ -13,6 +13,7 @@ export default [{
 }, {
 	input: 'es6/cli.js',
 	external: ['commander', 'fs-extra', '.'],
+	context: 'global',
 	output: {
 		file: pkg.bin,
 		format: 'cjs',

@@ -1,18 +1,19 @@
 import version from 'consts:version'
 import program from 'commander'
-import fs from 'fs-extra'
+import { PathMap } from './options'
 import nosync from '.'
 
 program.version(version)
-	.option('-s, --settings <json file>', 'JSON settings file')
+	.option('-p, --paths <json file>', 'JSON file with paths to not sync')
 	.option('-b, --base <path>', 'Base folder to store non-synced files')
 	.option('-o, --overwrite', 'Overwrite existing files in nosync folder')
-	.arguments('<paths...>')	//"Files or folders you don't want synced"
+	.arguments('[paths...]')	//"Files or folders you don't want synced"
 	.action((paths: string[]) => {
-		const settings = program.settings as string | undefined
-		const options = ((settings != null) && fs.existsSync(settings)) ?
-			fs.readJsonSync(settings) :
-			program.opts()
-		nosync(paths, options)
+		const { paths: jsonFile, ...options } = program.opts()
+		const jsonPaths = PathMap.fromJson(jsonFile)
+		if (paths.length)
+			nosync(paths, options)
+		if (jsonPaths)
+			nosync(jsonPaths, options)
 	})
 	.parse(process.argv)

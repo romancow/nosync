@@ -4,10 +4,10 @@ import { PathMap } from './options'
 import nosync from '.'
 
 program.version(version)
-	.option('-p, --paths <json file>', 'JSON file with paths to not sync')
 	.option('-b, --base <path>', 'Base folder to store non-synced files')
 	.option('-c, --check', 'Check that files are in iCloud folder')
 	.option('-o, --overwrite', 'Overwrite existing files in nosync folder')
+	.option('-p, --paths <json file>', 'JSON file with paths to not sync')
 	.arguments('[paths...]')	//"Files or folders you don't want synced"
 	.action((paths: string[]) => {
 		const { paths: jsonFile, ...options } = program.opts()

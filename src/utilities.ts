@@ -3,7 +3,7 @@ import * as path from 'path'
 
 const ICLOUD_DIR = (platformDir => platformDir && path.join(os.homedir(), platformDir))
 	(({
-		darwin: "Library/Mobile\ Douments/com~apple~CloudDocs/",
+		darwin: "Library/Mobile\ Documents/com~apple~CloudDocs/",
 		win32: "iCloudDrive"
 	} as Record<string,string>)[os.platform()])
 

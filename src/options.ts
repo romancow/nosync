@@ -3,6 +3,7 @@ import * as utils from './utilities'
 
 export type NoSyncOptions = {
 	base?: string
+	check?: boolean
 	overwrite?: boolean
 }
 

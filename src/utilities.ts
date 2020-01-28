@@ -1,3 +1,12 @@
+import * as os from 'os'
+import * as path from 'path'
+
+const ICLOUD_DIR = (platformDir => platformDir && path.join(os.homedir(), platformDir))
+	(({
+		darwin: "Library/Mobile\ Douments/com~apple~CloudDocs/",
+		win32: "iCloudDrive"
+	} as Record<string,string>)[os.platform()])
+
 namespace _Object {
 	export function isString(obj: any): obj is string {
 		return (Object.getPrototypeOf(obj) === String.prototype)
@@ -23,7 +32,15 @@ namespace _Array {
 	}
 }
 
+namespace Path {
+	export function isiCloud(pth: string) {
+		const resolved = path.resolve(pth)
+		return resolved.startsWith(ICLOUD_DIR)
+	}
+}
+
 export {
 	_Object as Object,
-	_Array as Array
+	_Array as Array,
+	Path
 }

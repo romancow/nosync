@@ -20,10 +20,7 @@
 		"build": "npm run build:es6 && npm run build:cjs",
 		"prepare": "npm run build"
 	},
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/romancow/nosync.git"
-	},
+	"repository": "git://github.com/romancow/nosync.git",
 	"keywords": [
 		"iCloud",
 		"sync",

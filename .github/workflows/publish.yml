@@ -1,0 +1,26 @@
+name: Publish
+
+on:
+  release:
+    types: [published]
+
+jobs:
+
+  publish-github-package-registry:
+    name: Publish new version to GitHub Package Registry
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v1
+      - name: Use Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: 'https://npm.pkg.github.com'
+      - name: Install Dependencies & Build
+        run: npm install
+      - name: Publish Release
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

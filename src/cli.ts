@@ -13,7 +13,8 @@ program.version(version)
 	.action((paths: string[]) => {
 		const { paths: jsonFile, silent, ...options } = program.opts()
 		if (!silent) options.log = console.log
-		const jsonPaths = PathMap.fromJson(jsonFile)
+		const defaultJsonFile = paths.length ? null : './nosync.json'
+		const jsonPaths = PathMap.fromJson(jsonFile ?? defaultJsonFile)
 		if (paths.length)
 			nosync(paths, options)
 		if (jsonPaths)

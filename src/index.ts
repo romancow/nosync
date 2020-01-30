@@ -3,6 +3,8 @@ import * as path from 'path'
 import * as utils from './utilities'
 import { PathMap, NoSyncOptions } from './options'
 
+type NoSyncLogOptions = NoSyncOptions & { log?(message: string): void }
+
 /**
  * Moves the file or folder at the given `path` to a folder ignored by iCloud,
  * and creates a symlink to it in its place.
@@ -30,30 +32,38 @@ function nosync(paths: string[], options?: NoSyncOptions): Promise<void>
  */
 function nosync(paths: PathMap, options?: NoSyncOptions): Promise<void>
 
-async function nosync(paths: string | string[] | PathMap, options: NoSyncOptions = {}) {
-	const { base = './.nosync', check = false, overwrite = false } = options
+async function nosync(paths: string | string[] | PathMap, options: NoSyncLogOptions = {}) {
+	const { base = './.nosync', check = false, overwrite = false, log } = options
 	const normalizedPaths = PathMap.normalizePaths(paths)
-	const  nosyncs = utils.Object.collect(normalizedPaths, async (dest, link: string) => {
+	log?.(`Nosync location: ${base}`)
+	const nosyncs = utils.Object.collect(normalizedPaths, async (dest, link: string) => {
 		if (check && !utils.Path.isiCloud(link)) {
-			console.log("Skipping non-iCloud path:", link)
+			log?.(`Skipping non-iCloud path: ${link}`)
 			return
 		}
 
 		const nosyncPath = path.join(base, dest)
-		const linkExists = await fs.pathExists(link) && (await fs.lstat(link)).isSymbolicLink()
+		const symlinkExists = await fs.pathExists(link) && (await fs.lstat(link)).isSymbolicLink()
 
-		if (linkExists && (await fs.readlink(link) !== nosyncPath))
+		if (symlinkExists && (await fs.readlink(link) !== nosyncPath)) {
+			log?.(`Removing existing symlink: ${link}...`)
 			await fs.remove(link)
+		}
 
-		if (!linkExists && await fs.pathExists(link))
+		if (!symlinkExists && await fs.pathExists(link)) {
+			log?.(`Moving ${link}...`)
 			await fs.move(link, nosyncPath, { overwrite })
-		else if (!(await fs.pathExists(nosyncPath)))
+		}
+		else if (!(await fs.pathExists(nosyncPath))) {
 			await fs.ensureDir(nosyncPath)
+		}
 		else if (overwrite && !(await fs.lstat(nosyncPath)).isDirectory()) {
+			log?.(`Replacing ${nosyncPath}...`)
 			await fs.remove(nosyncPath)
 			await fs.ensureDir(nosyncPath)
 		}
 
+		log?.(`Ensure symlink ${link} to ${nosyncPath}...`)
 		await fs.ensureSymlink(nosyncPath, link)
 	})
 	await Promise.all(nosyncs)

@@ -10,7 +10,7 @@ import { PathMap, NoSyncOptions } from './options'
  * @param path - Path to the file or folder to not sync to iCloud
  * @param options - Options for moving and symlinking file or folder
  */
-function nosync(path: string, options?: NoSyncOptions): void
+function nosync(path: string, options?: NoSyncOptions): Promise<void>
 
 /**
  * Moves the files and folders at the given `paths` to a folder ignored by iCloud,
@@ -19,7 +19,7 @@ function nosync(path: string, options?: NoSyncOptions): void
  * @param paths - Paths to the files or folders to not sync to iCloud
  * @param options - Options for moving and symlinking files and folders
  */
-function nosync(paths: string[], options?: NoSyncOptions): void
+function nosync(paths: string[], options?: NoSyncOptions): Promise<void>
 
 /**
  * Moves the files and folders at the given `paths` to a folder ignored by iCloud,
@@ -28,34 +28,35 @@ function nosync(paths: string[], options?: NoSyncOptions): void
  * @param paths - An object mapping files or folders to be symlinked to where they should be located in the "nosync" folder
  * @param options - Options for moving and symlinking files and folders
  */
-function nosync(paths: PathMap, options?: NoSyncOptions): void
+function nosync(paths: PathMap, options?: NoSyncOptions): Promise<void>
 
-function nosync(paths: string | string[] | PathMap, options: NoSyncOptions = {}) {
+async function nosync(paths: string | string[] | PathMap, options: NoSyncOptions = {}) {
 	const { base = './.nosync', check = false, overwrite = false } = options
 	const normalizedPaths = PathMap.normalizePaths(paths)
-	utils.Object.forEach(normalizedPaths, (dest, link: string) => {
+	const  nosyncs = utils.Object.collect(normalizedPaths, async (dest, link: string) => {
 		if (check && !utils.Path.isiCloud(link)) {
 			console.log("Skipping non-iCloud path:", link)
 			return
 		}
 
 		const nosyncPath = path.join(base, dest)
-		const linkExists = fs.pathExistsSync(link) && fs.lstatSync(link).isSymbolicLink()
+		const linkExists = await fs.pathExists(link) && (await fs.lstat(link)).isSymbolicLink()
 
-		if (linkExists && (fs.readlinkSync(link) !== nosyncPath))
-			fs.removeSync(link)
+		if (linkExists && (await fs.readlink(link) !== nosyncPath))
+			await fs.remove(link)
 
-		if (!linkExists && fs.pathExistsSync(link))
-			fs.moveSync(link, nosyncPath, { overwrite })
-		else if (!fs.pathExistsSync(nosyncPath))
-			fs.ensureDirSync(nosyncPath)
-		else if (overwrite && !fs.lstatSync(nosyncPath).isDirectory()) {
-			fs.removeSync(nosyncPath)
-			fs.ensureDirSync(nosyncPath)
+		if (!linkExists && await fs.pathExists(link))
+			await fs.move(link, nosyncPath, { overwrite })
+		else if (!(await fs.pathExists(nosyncPath)))
+			await fs.ensureDir(nosyncPath)
+		else if (overwrite && !(await fs.lstat(nosyncPath)).isDirectory()) {
+			await fs.remove(nosyncPath)
+			await fs.ensureDir(nosyncPath)
 		}
 
-		fs.ensureSymlinkSync(nosyncPath, link)
+		await fs.ensureSymlink(nosyncPath, link)
 	})
+	await Promise.all(nosyncs)
 }
 
 export default nosync

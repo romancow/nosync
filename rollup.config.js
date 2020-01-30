@@ -5,6 +5,7 @@ import executable from 'rollup-plugin-executable'
 export default [{
 	input: pkg.module,
 	external: ['fs-extra', 'os', 'path'],
+	context: 'global',
 	output: {
 		file: pkg.main,
 		format: 'cjs',

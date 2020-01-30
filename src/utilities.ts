@@ -12,9 +12,9 @@ namespace _Object {
 		return (Object.getPrototypeOf(obj) === String.prototype)
 	}
 
-	export function forEach<T, K extends keyof T>(obj: T, fn: (val: T[K], key: K, obj: T) => void) {
+	export function collect<T, K extends keyof T, U>(obj: T, fn: (val: T[K], key: K, obj: T) => U) {
 		const keys = Object.keys(obj) as K[]
-		keys.forEach(key => fn(obj[key], key, obj))
+		return keys.map((key: K) => fn(obj[key], key, obj))
 	}
 }
 

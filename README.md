@@ -135,6 +135,21 @@ Supported options are (check [above](#Options) for what they do):
 	<dd>output usage information</dd>
 </dl>
 
+#### With npm
+
+So if you wanted to hide your "node_modules" folder from iCloud before calling install on a fresh package,
+you could do something like this:
+
+	nosync node_modules && npm install
+
+Or if you want check to make sure it's on your iCloud drive before doing it:
+
+	nosync node_modules -c && npm install
+
+Or if initializing a new package:
+
+	nosync node_modules && npm init
+
 #### Using the --paths option
 
 The `-paths` options allows you to specify a JSON file to use to specify the paths that shouldn't be

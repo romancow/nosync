@@ -5,6 +5,7 @@
 - [Usage](#Usage)
 	- [Programmatic](#Programmatic)
 	- [Command Line](#Command-Line)
+- [Links](#Links)
 - [License](#License)
 
 ## About
@@ -148,6 +149,12 @@ paths, or an object mapping paths to where they should be located within the `.n
 If paths are specified as both command line arguments and in a json file, then they will all be "nosynced".
 If neither is specified, then `nosync` will look for a paths json file named "nosync.json" in the current
 working directory.
+
+## Links
+
+If you want to hide your nosync folder in Visual Studio Code's explorer side bar:
+
+> [Hide Unwanted Folders in Visual Studio Code](https://medium.com/@m3lles/how-to-hide-unwanted-folders-and-files-in-visual-studio-code-2bb0f39c4251)
 
 ## License
 

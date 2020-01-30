@@ -1,7 +1,7 @@
 import * as os from 'os'
-import * as path from 'path'
+import * as PathUtils from 'path'
 
-const ICLOUD_DIR = (platformDir => platformDir && path.join(os.homedir(), platformDir))
+const ICLOUD_DIR = (platformDir => platformDir && PathUtils.join(os.homedir(), platformDir))
 	(({
 		darwin: "Library/Mobile\ Documents/com~apple~CloudDocs/",
 		win32: "iCloudDrive"
@@ -33,8 +33,8 @@ namespace _Array {
 }
 
 namespace Path {
-	export function isiCloud(pth: string) {
-		const resolved = path.resolve(pth)
+	export function isiCloud(path: string) {
+		const resolved = PathUtils.resolve(path)
 		return resolved.startsWith(ICLOUD_DIR)
 	}
 }

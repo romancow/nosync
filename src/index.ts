@@ -38,11 +38,22 @@ function nosync(paths: string | string[] | PathMap, options: NoSyncOptions = {})
 			console.log("Skipping non-iCloud path:", link)
 			return
 		}
+
 		const nosyncPath = path.join(base, dest)
-		if (fs.existsSync(link))
+		const linkExists = fs.pathExistsSync(link) && fs.lstatSync(link).isSymbolicLink()
+
+		if (linkExists && (fs.readlinkSync(link) !== nosyncPath))
+			fs.removeSync(link)
+
+		if (!linkExists && fs.pathExistsSync(link))
 			fs.moveSync(link, nosyncPath, { overwrite })
-		else if (!fs.existsSync(nosyncPath))
+		else if (!fs.pathExistsSync(nosyncPath))
 			fs.ensureDirSync(nosyncPath)
+		else if (overwrite && !fs.lstatSync(nosyncPath).isDirectory()) {
+			fs.removeSync(nosyncPath)
+			fs.ensureDirSync(nosyncPath)
+		}
+
 		fs.ensureSymlinkSync(nosyncPath, link)
 	})
 }

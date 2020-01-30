@@ -8,7 +8,7 @@ program.version(version)
 	.option('-c, --check', 'Check that files are in iCloud folder')
 	.option('-o, --overwrite', 'Overwrite existing files in nosync folder')
 	.option('-p, --paths <json file>', 'JSON file with paths to not sync')
-	.option('-s, --silent', "Suppress console information")
+	.option('-s, --silent', "Suppresses console information")
 	.arguments('[paths...]')	//"Files or folders you don't want synced"
 	.action((paths: string[]) => {
 		const { paths: jsonFile, silent, ...options } = program.opts()

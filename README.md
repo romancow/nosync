@@ -128,6 +128,8 @@ Supported options are (check [above](#Options) for what they do):
 	<dd>Overwrite existing files in nosync folder</dd>
 	<dt>-p, --paths &ltjson file&gt</dt>
 	<dd>JSON file with paths to not sync</dd>
+	<dt>-s, --silent</dt>
+	<dd>Suppresses console information</dd>
 	<dt>-h, --help</dt>
 	<dd>output usage information</dd>
 </dl>
@@ -144,6 +146,8 @@ not to sync, varying it based on the individual needs of that project. The json 
 paths, or an object mapping paths to where they should be located within the `.nosync` folder.
 
 If paths are specified as both command line arguments and in a json file, then they will all be "nosynced".
+If neither is specified, then `nosync` will look for a paths json file named "nosync.json" in the current
+working directory.
 
 ## License
 

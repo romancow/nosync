@@ -30,16 +30,15 @@ Add a scope mapping for the GitHub npm package manager by adding a `.npmrc` file
 
 Then install the package:
 
-	npm install @romancow/vue-external-events
+	npm install @romancow/nosync
 
 or
 
-	yarn add @romancow/vue-external-events
+	yarn add @romancow/nosync
 
 More info on using the GitHub npm package registry [here](https://help.github.com/en/articles/configuring-npm-for-use-with-github-package-registry#installing-a-package).
 
-You might also want to add your nosync folder (".nosync" by default) to your .gitignore since things you
-don't want to sync are typically also things you don't want in git.
+You might also want to add your nosync folder (".nosync" by default) to your .gitignore since things you don't want to sync are typically also things you don't want in git.
 
 ## Usage
 
